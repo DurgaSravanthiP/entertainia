@@ -1,0 +1,938 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Comic+Neue:wght@400;700&display=swap');
+
+:root {
+    --primary: #493D9E;
+    /* Deep purple */
+    --secondary: #B2A5FF;
+    /* Light purple */
+    --light-accent: #DAD2FF;
+    /* Very light purple */
+    --yellow: #FFF2AF;
+    /* Pale yellow */
+    --pink: #FFB6C1;
+    /* Light pink */
+    --green: #98FF98;
+    /* Mint green */
+}
+
+body {
+    background-color: #f9f8ff;
+    font-family: 'Comic Neue', cursive;
+    text-align: center;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    position: relative;
+}
+
+.header {
+    font-family: 'Baloo 2', cursive;
+    font-size: 4.5rem;
+    color: var(--primary);
+    text-shadow: 5px 5px 0px var(--yellow),
+        8px 8px 0px rgba(0, 0, 0, 0.1);
+    margin: 30px 0;
+    position: relative;
+    display: inline-block;
+    transform-style: preserve-3d;
+    animation: bounce 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0) rotate(-2deg);
+    }
+
+    100% {
+        transform: translateY(-15px) rotate(2deg);
+    }
+}
+
+.header:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: var(--secondary);
+    z-index: -1;
+    border-radius: 50px;
+    transform: rotate(-1deg);
+}
+
+.header:before {
+    content: '✨';
+    position: absolute;
+    top: -20px;
+    right: -30px;
+    font-size: 2rem;
+    animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+.cloud {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.9;
+    z-index: -1;
+    animation: float 14s infinite ease-in-out;
+    filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.1));
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) translateX(0);
+    }
+
+    50% {
+        transform: translateY(-20px) translateX(10px);
+    }
+}
+
+.cartoon-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    perspective: 1000px;
+}
+
+.cartoon-card {
+    width: 300px;
+    background: white;
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: visible;
+    margin-bottom: 150px;
+    border: 3px solid var(--light-accent);
+    transform-style: preserve-3d;
+    transform: perspective(500px) rotateY(0deg);
+}
+
+.cartoon-card:hover {
+    transform: translateY(-10px) perspective(500px) rotateY(5deg);
+    box-shadow: 15px 15px 0px var(--light-accent);
+}
+
+.cartoon-card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--yellow));
+    border-radius: 20px 20px 0 0;
+}
+
+.cartoon-card:after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 10%;
+    width: 80%;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    filter: blur(10px);
+    z-index: -1;
+    transition: all 0.3s ease;
+}
+
+.cartoon-card:hover:after {
+    bottom: -20px;
+    width: 90%;
+    opacity: 0.8;
+}
+
+.cartoon-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 3px dashed var(--primary);
+    padding: 5px;
+    background: white;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.cartoon-card:hover .cartoon-img {
+    transform: scale(1.03) rotate(-1deg);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.cartoon-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.7rem;
+    color: var(--primary);
+    margin: 15px 0 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.cartoon-title:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.cartoon-card:hover .cartoon-title:after {
+    transform: scaleX(1);
+}
+
+.cartoon-meta {
+    font-size: 1rem;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+
+.cartoon-meta span {
+    background: var(--light-accent);
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-weight: bold;
+}
+
+.play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    z-index: 3;
+}
+
+.play-btn i {
+    color: var(--primary);
+    font-size: 2.5rem;
+    margin-left: 5px;
+    transition: all 0.2s ease;
+}
+
+.play-btn:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: var(--yellow);
+}
+
+.play-btn:hover i {
+    color: var(--primary);
+    transform: scale(1.1);
+}
+
+.cartoon-card:hover .play-btn {
+    opacity: 1;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(178, 165, 255, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(178, 165, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(178, 165, 255, 0);
+    }
+}
+
+.player-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(73, 61, 158, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+}
+
+.video-player {
+    width: 85%;
+    max-width: 1000px;
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    position: relative;
+    box-shadow: 0 0 0 8px var(--primary), 0 0 0 16px var(--yellow), 0 0 0 24px var(--secondary);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-origin: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 60px;
+    height: 60px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    border: 4px solid var(--yellow);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+    z-index: 101;
+}
+
+.close-btn:hover {
+    transform: scale(1.1) rotate(90deg);
+    background: var(--secondary);
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 15px;
+    border: 4px dashed var(--yellow);
+    background: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.category-tab {
+    padding: 12px 30px;
+    background: white;
+    border-radius: 50px;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: 3px dashed var(--primary);
+    transition: all 0.3s ease;
+    color: var(--primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.category-tab:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: all 0.5s ease;
+}
+
+.category-tab:hover:before {
+    left: 100%;
+}
+
+.category-tab:hover {
+    transform: translateY(-5px);
+    background: var(--light-accent);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.category-tab.active {
+    background: var(--primary);
+    color: white;
+    border-style: solid;
+    box-shadow: 0 5px 0px var(--secondary), 0 10px 20px rgba(73, 61, 158, 0.3);
+    transform: translateY(-3px);
+}
+
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--light-accent);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+}
+
+.loading-title-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 50px;
+}
+
+.loading-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 4.5rem;
+    color: var(--primary);
+    text-shadow: 5px 5px 0px var(--yellow);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+    animation: titleBounce 2s infinite alternate;
+}
+
+@keyframes titleBounce {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        transform: translateY(-15px) scale(1.05);
+    }
+}
+
+.character-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.walking-track {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: var(--secondary);
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.character {
+    width: 120px;
+    height: 160px;
+    position: absolute;
+    bottom: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    animation: walk 14s linear infinite;
+    transform-origin: bottom center;
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.3));
+}
+
+.character.shinchan {
+    background-image: url('https://img.favpng.com/11/2/24/crayon-shin-chan-shinnosuke-nohara-drawing-donald-duck-animated-film-png-favpng-rnY7fn7nX9h5WVB0bPfxTqsRt_t.jpg');
+    left: 0;
+}
+
+@keyframes walk {
+    0% {
+        transform: translateX(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateX(150px) rotate(5deg);
+    }
+
+    50% {
+        transform: translateX(300px) rotate(0deg);
+    }
+
+    75% {
+        transform: translateX(450px) rotate(-5deg);
+    }
+
+    100% {
+        transform: translateX(600px) rotate(0deg);
+    }
+}
+
+.explore-btn {
+    padding: 18px 50px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0 10px 0px var(--secondary);
+    transition: all 0.3s ease;
+    margin-top: 50px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.explore-btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: all 0.5s ease;
+    z-index: -1;
+}
+
+.explore-btn:hover:before {
+    left: 100%;
+}
+
+.explore-btn:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 0px var(--secondary);
+    background: var(--secondary);
+    color: var(--primary);
+}
+
+.episode-selector {
+    display: none;
+    position: absolute;
+    bottom: -180px;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    border: 3px dashed var(--secondary);
+    height: auto;
+    min-height: 180px;
+    transition: all 0.4s ease;
+}
+
+.cartoon-card:hover .episode-selector {
+    display: block;
+    animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.episode-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+    text-align: center;
+    background: var(--light-accent);
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px dashed var(--yellow);
+    position: relative;
+}
+
+.episode-title:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid var(--light-accent);
+}
+
+.episode-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    padding: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.episode-item {
+    padding: 12px 8px;
+    background: var(--light-accent);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid var(--secondary);
+    text-align: center;
+    line-height: 1.4;
+    min-height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.episode-item:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: all 0.5s ease;
+}
+
+.episode-item:hover:before {
+    left: 100%;
+}
+
+.episode-item:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px var(--light-accent);
+    border-color: var(--primary);
+}
+
+.episode-number {
+    font-weight: bold;
+    color: var(--primary);
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+    font-family: 'Baloo 2', cursive;
+}
+
+.episode-item:hover .episode-number {
+    color: var(--yellow);
+}
+
+.episode-list::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.episode-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.episode-list::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+}
+
+.episode-list::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary);
+}
+
+.confetti {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: var(--primary);
+    opacity: 0.8;
+    animation: confettiFall 5s linear forwards;
+    z-index: 100;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+    }
+
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+.floating-character {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: -1;
+    animation: floatAround 15s infinite linear;
+    opacity: 0.7;
+    filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes floatAround {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(50px, 50px) rotate(90deg);
+    }
+
+    50% {
+        transform: translate(100px, 0) rotate(180deg);
+    }
+
+    75% {
+        transform: translate(50px, -50px) rotate(270deg);
+    }
+}
+
+.special-features {
+    position: fixed;
+    top: 50px;
+    right: -70px;
+    background: var(--pink);
+    color: white;
+    padding: 10px 80px;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.2rem;
+    transform: rotate(45deg);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 50;
+    animation: ribbonPulse 2s infinite;
+}
+
+@keyframes ribbonPulse {
+
+    0%,
+    100% {
+        background: var(--pink);
+    }
+
+    50% {
+        background: var(--green);
+    }
+}
+
+.notification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--primary);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-family: 'Baloo 2', cursive;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.5s ease;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.notification i {
+    font-size: 1.5rem;
+    animation: bellRing 0.5s alternate infinite;
+}
+
+@keyframes bellRing {
+    0% {
+        transform: rotate(-15deg);
+    }
+
+    100% {
+        transform: rotate(15deg);
+    }
+}
+
+@media (max-width: 1200px) {
+    .episode-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .cartoon-card {
+        width: 280px;
+    }
+
+    .episode-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .header,
+    .loading-title {
+        font-size: 3.5rem;
+    }
+
+    .cartoon-card {
+        width: 240px;
+        margin-bottom: 160px;
+    }
+
+    .video-player {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .episode-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .episode-selector {
+        bottom: -200px;
+        padding: 15px;
+    }
+
+    .episode-item {
+        min-height: 80px;
+        padding: 10px 5px;
+    }
+
+    .character {
+        width: 80px;
+        height: 120px;
+    }
+
+    @keyframes walk {
+        0% {
+            transform: translateX(0) rotate(0deg);
+        }
+
+        25% {
+            transform: translateX(100px) rotate(5deg);
+        }
+
+        50% {
+            transform: translateX(200px) rotate(0deg);
+        }
+
+        75% {
+            transform: translateX(300px) rotate(-5deg);
+        }
+
+        100% {
+            transform: translateX(400px) rotate(0deg);
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .episode-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .episode-selector {
+        bottom: -220px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .header,
+    .loading-title {
+        font-size: 2.8rem;
+    }
+
+    .cartoon-card {
+        width: 200px;
+        margin-bottom: 180px;
+    }
+
+    .episode-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .episode-selector {
+        bottom: -240px;
+    }
+
+    .character {
+        width: 60px;
+        height: 100px;
+    }
+
+    .explore-btn {
+        padding: 15px 40px;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .episode-list {
+        grid-template-columns: 1fr;
+    }
+
+    .episode-selector {
+        bottom: -380px;
+    }
+}

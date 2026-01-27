@@ -1,0 +1,805 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Comic+Neue:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --primary: #6C4AB6;
+    /* Purple */
+    --secondary: #8D72E1;
+    /* Light purple */
+    --accent: #B9E0FF;
+    /* Very light blue */
+    --yellow: #FFD95A;
+    /* Yellow */
+    --pink: #FF9BD2;
+    /* Pink */
+    --green: #7DCE13;
+    /* Green */
+    --dark: #2D2727;
+    /* Dark */
+    --light: #F5F5F5;
+    /* Light */
+    --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--light);
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark);
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Header Styles */
+.header {
+    font-family: 'Baloo 2', cursive;
+    font-size: 4.5rem;
+    color: var(--primary);
+    text-shadow: 3px 3px 0 var(--yellow),
+        6px 6px 0 rgba(0, 0, 0, 0.1);
+    margin: 30px 0;
+    position: relative;
+    display: inline-block;
+    transform-style: preserve-3d;
+    animation: bounce 2s infinite alternate;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0) rotate(-2deg);
+    }
+
+    100% {
+        transform: translateY(-15px) rotate(2deg);
+    }
+}
+
+.header:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: var(--secondary);
+    z-index: -1;
+    border-radius: 50px;
+    transform: rotate(-1deg);
+    opacity: 0.7;
+}
+
+.header:before {
+    content: '✨';
+    position: absolute;
+    top: -20px;
+    right: -30px;
+    font-size: 2rem;
+    animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* Main Container */
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+}
+
+/* Search Bar and Favorites Button */
+.nav-container {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    position: relative;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.search-container {
+    flex: 1;
+    position: relative;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 18px 25px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+    padding-left: 60px;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+}
+
+.search-bar:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 5px 20px rgba(108, 74, 182, 0.3);
+}
+
+.search-icon {
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary);
+    font-size: 1.3rem;
+}
+
+.favorites-btn {
+    padding: 18px 30px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.favorites-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(108, 74, 182, 0.3);
+    background: var(--secondary);
+}
+
+.back-btn {
+    padding: 18px 30px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.back-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(108, 74, 182, 0.3);
+    background: var(--secondary);
+}
+
+/* Movies Grid - UPDATED FOR LARGER CARDS AND 3 PER ROW */
+.movies-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    /* Moderate gap between cards */
+    margin: 40px auto;
+    max-width: 1200px;
+    /* Control the overall width */
+    padding: 0 20px;
+}
+
+.movie-card {
+    background: white;
+    border-radius: 12px;
+    overflow: visible;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 150px;
+    /* Space for dropdown */
+    border: 2px solid var(--accent);
+    aspect-ratio: 1/1.2;
+    /* More squared proportion like in the image */
+}
+
+.movie-card:hover {
+    transform: translateY(-15px);
+    /* Increased lift effect */
+    box-shadow: 0 20px 40px rgba(108, 74, 182, 0.25);
+}
+
+.movie-poster {
+    width: 100%;
+    height: 220px;
+    /* Slightly smaller height */
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px dashed var(--primary);
+    padding: 4px;
+}
+
+.movie-card:hover .movie-poster {
+    transform: scale(1.03) rotate(-1deg);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.movie-info {
+    padding: 25px;
+    /* Increased padding */
+}
+
+.movie-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.8rem;
+    /* Increased font size */
+    color: var(--primary);
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.movie-title:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.movie-card:hover .movie-title:after {
+    transform: scaleX(1);
+}
+
+.movie-year {
+    color: #666;
+    font-size: 1rem;
+    /* Increased font size */
+    font-weight: 500;
+}
+
+/* Movie Songs (Episode Selector Style) */
+.movie-songs {
+    display: none;
+    position: absolute;
+    bottom: -180px;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    border: 3px dashed var(--secondary);
+    height: auto;
+    min-height: 180px;
+    transition: all 0.4s ease;
+}
+
+.movie-card:hover .movie-songs {
+    display: block;
+    animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.songs-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+    text-align: center;
+    background: var(--accent);
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px dashed var(--yellow);
+    position: relative;
+}
+
+.songs-title:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid var(--accent);
+}
+
+.songs-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.song-item {
+    padding: 12px 8px;
+    background: var(--accent);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid var(--secondary);
+    text-align: center;
+    line-height: 1.4;
+    min-height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.song-item:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: all 0.5s ease;
+}
+
+.song-item:hover:before {
+    left: 100%;
+}
+
+.song-item:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px var(--accent);
+    border-color: var(--primary);
+}
+
+.song-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.song-artist {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.song-actions {
+    display: flex;
+    margin-top: 8px;
+    gap: 10px;
+}
+
+.play-song-btn,
+.favorite-btn {
+    background: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--primary);
+}
+
+.play-song-btn:hover,
+.favorite-btn:hover {
+    transform: scale(1.2);
+    background: var(--yellow);
+}
+
+.favorite-btn.favorited {
+    color: var(--pink);
+    background: var(--yellow);
+}
+
+/* Player Styles */
+.player-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(44, 39, 39, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.video-player {
+    width: 85%;
+    max-width: 1000px;
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    position: relative;
+    box-shadow: 0 0 0 8px var(--primary), 0 0 0 16px var(--yellow), 0 0 0 24px var(--secondary);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-origin: center;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.close-btn {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 60px;
+    height: 60px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    border: 4px solid var(--yellow);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+    z-index: 101;
+}
+
+.close-btn:hover {
+    transform: scale(1.1) rotate(90deg);
+    background: var(--secondary);
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 15px;
+    border: 4px dashed var(--yellow);
+    background: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Loading Screen */
+/* removed initial loading animation; main content shows directly */
+
+/* Favorites Page - UPDATED FOR LARGER CARDS AND 3 PER ROW */
+.favorites-page {
+    display: none;
+}
+
+.favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin: 40px auto;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.favorite-card {
+    border-radius: 12px;
+    aspect-ratio: 1/1.2;
+    padding: 15px;
+}
+
+
+.favorite-card:hover {
+    transform: translateY(-15px);
+    /* Increased lift effect */
+    box-shadow: 0 20px 40px rgba(108, 74, 182, 0.25);
+}
+
+.favorite-poster {
+    width: 100%;
+    height: 220px;
+    /* Increased height */
+    object-fit: cover;
+    border-radius: 15px;
+    border: 3px dashed var(--primary);
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.favorite-info {
+    padding: 20px 10px;
+}
+
+.favorite-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.5rem;
+    /* Increased font size */
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.favorite-artist {
+    color: #666;
+    font-size: 1rem;
+    /* Increased font size */
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.favorite-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.play-favorite-btn,
+.remove-favorite-btn {
+    padding: 10px 20px;
+    /* Increased padding */
+    border: none;
+    border-radius: 50px;
+    font-family: 'Baloo 2', cursive;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1rem;
+    /* Increased font size */
+}
+
+.play-favorite-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.remove-favorite-btn {
+    background: var(--accent);
+    color: var(--primary);
+}
+
+.play-favorite-btn:hover,
+.remove-favorite-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.remove-favorite-btn:hover {
+    background: var(--pink);
+    color: white;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.empty-text {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Notification */
+.notification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--primary);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-family: 'Baloo 2', cursive;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.5s ease;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.notification i {
+    font-size: 1.5rem;
+    animation: bellRing 0.5s alternate infinite;
+}
+
+@keyframes bellRing {
+    0% {
+        transform: rotate(-15deg);
+    }
+
+    100% {
+        transform: rotate(15deg);
+    }
+}
+
+/* Floating Elements */
+.floating-element {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: -1;
+    opacity: 0.1;
+    animation: floatAround 20s infinite linear;
+}
+
+@keyframes floatAround {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(50px, 50px) rotate(90deg);
+    }
+
+    50% {
+        transform: translate(100px, 0) rotate(180deg);
+    }
+
+    75% {
+        transform: translate(50px, -50px) rotate(270deg);
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+
+    .movies-grid,
+    .favorites-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* Change to 2 per row on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+
+    .header,
+    .loading-title {
+        font-size: 3.5rem;
+    }
+
+    .nav-container {
+        flex-direction: column;
+    }
+
+    .search-bar {
+        padding: 15px 20px 15px 50px;
+    }
+
+    .favorites-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .video-player {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .close-btn {
+        top: -20px;
+        right: -20px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+
+    .movies-grid,
+    .favorites-grid {
+        grid-template-columns: 1fr;
+        /* Change to 1 per row on small screens */
+    }
+
+    .movie-card {
+        margin-bottom: 200px;
+    }
+
+    .movie-songs {
+        bottom: -200px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .header,
+    .loading-title {
+        font-size: 2.5rem;
+    }
+
+    .search-bar {
+        padding: 12px 15px 12px 45px;
+        font-size: 1rem;
+    }
+
+    .search-icon {
+        left: 15px;
+        font-size: 1.1rem;
+    }
+
+    .explore-btn {
+        padding: 15px 40px;
+        font-size: 1.5rem;
+    }
+
+    .movie-card {
+        margin-bottom: 220px;
+    }
+
+    .movie-songs {
+        bottom: -220px;
+    }
+}
