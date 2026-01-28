@@ -7,60 +7,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
     $loginAs = $_POST['login_as'];  // "user" or "admin"
 
-    // Fetch that user’s hashed password and role
-    $stmt = $conn->prepare(
-        "SELECT password, role
-         FROM users
-        WHERE username = ?"
-    );
+    // 1. Try fetching from users table
+    $stmt = $conn->prepare("SELECT password, role FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $stmt->store_result();
 
+    $found = false;
+    $hashedPassword = '';
+    $dbRole = '';
+
     if ($stmt->num_rows === 1) {
         $stmt->bind_result($hashedPassword, $dbRole);
         $stmt->fetch();
+        $found = true;
+    } else {
+        // 2. Try fetching from admins table
+        $stmt_admin = $conn->prepare("SELECT password, 'admin' as role FROM admins WHERE username = ?");
+        $stmt_admin->bind_param("s", $username);
+        $stmt_admin->execute();
+        $stmt_admin->store_result();
 
-        // Check password first
+        if ($stmt_admin->num_rows === 1) {
+            $stmt_admin->bind_result($hashedPassword, $dbRole);
+            $stmt_admin->fetch();
+            $found = true;
+        }
+    }
+
+    if ($found) {
+        // Check password
         if (password_verify($password, $hashedPassword)) {
             session_regenerate_id(true);
-            // Now enforce the chosen login_as matches their real DB role
+
             if ($loginAs === 'admin') {
                 if ($dbRole === 'admin') {
-                    // OK: real admin logging in as admin
                     $_SESSION['username'] = $username;
                     $_SESSION['role'] = 'admin';
                     header("Location: admin_dashboard.php");
                     exit();
                 } else {
                     $_SESSION['error'] = 'Access denied: you are not an admin.';
-                    header("Location: index.php");
+                    header("Location: login.php");
                     exit();
                 }
             } else {
                 // login_as == 'user'
-                if ($dbRole === 'user' || $dbRole === 'admin') {
-                    // Both users and admins can log in as users
-                    $_SESSION['username'] = $username;
-                    $_SESSION['role'] = $dbRole;
-                    header("Location: selection.php");
-                    exit();
-                } else {
-                    $_SESSION['error'] = 'Invalid role. Contact admin.';
-                    header("Location: index.php");
-                    exit();
-                }
+                $_SESSION['username'] = $username;
+                $_SESSION['role'] = $dbRole;
+                header("Location: selection.php");
+                exit();
             }
         } else {
-            // Wrong password
             $_SESSION['error'] = 'Invalid password. Please try again.';
-            header("Location: index.php");
+            header("Location: login.php");
             exit();
         }
     } else {
-        // User not found
-        $_SESSION['error'] = 'No such user. Please register first.';
-        header("Location: index.php");
+        $_SESSION['error'] = 'No account found with that username.';
+        header("Location: login.php");
         exit();
     }
 }

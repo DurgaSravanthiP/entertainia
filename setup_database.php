@@ -25,7 +25,7 @@ if ($conn->query($sql) === TRUE) {
 // 3. Select Database
 $conn->select_db("funhub");
 
-// 4. Create Users Table (with reset columns)
+// 4. Create Users Table
 $sql = "CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -42,7 +42,21 @@ if ($conn->query($sql) === TRUE) {
     echo "Error creating table: " . $conn->error . "<br>";
 }
 
-// 5. Create Favorites table
+// 5. Create Admins Table
+$sql = "CREATE TABLE IF NOT EXISTS admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Table 'admins' created or already exists.<br>";
+} else {
+    echo "Error creating admins table: " . $conn->error . "<br>";
+}
+
+// 6. Create Favorites table
 $sql = "CREATE TABLE IF NOT EXISTS favorites (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -62,25 +76,35 @@ if ($conn->query($sql) === TRUE) {
     echo "Error creating favorites table: " . $conn->error . "<br>";
 }
 
-// 5. Create Default Admin (Optional: password 'admin123')
-$adminUser = 'admin';
-$adminPass = password_hash('admin123', PASSWORD_DEFAULT); // Default password
-$checkAdmin = "SELECT * FROM users WHERE username = '$adminUser'";
-$result = $conn->query($checkAdmin);
+// 7. Insert 4 Default Admins
+$admins = [
+    ['admin1', 'admin123'],
+    ['admin2', 'admin123'],
+    ['admin3', 'admin123'],
+    ['admin4', 'admin123']
+];
 
-if ($result->num_rows == 0) {
-    $insertAdmin = "INSERT INTO users (username, password, role) VALUES ('$adminUser', '$adminPass', 'admin')";
-    if ($conn->query($insertAdmin) === TRUE) {
-        echo "Default admin account created (Username: <b>admin</b>, Password: <b>admin123</b>).<br>";
+foreach ($admins as $admin) {
+    $adminUser = $admin[0];
+    $adminPass = password_hash($admin[1], PASSWORD_DEFAULT);
+
+    $checkAdmin = "SELECT * FROM admins WHERE username = '$adminUser'";
+    $result = $conn->query($checkAdmin);
+
+    if ($result->num_rows == 0) {
+        $insertAdmin = "INSERT INTO admins (username, password) VALUES ('$adminUser', '$adminPass')";
+        if ($conn->query($insertAdmin) === TRUE) {
+            echo "Admin account created (Username: <b>$adminUser</b>, Password: <b>$admin[1]</b>).<br>";
+        } else {
+            echo "Error creating admin $adminUser: " . $conn->error . "<br>";
+        }
     } else {
-        echo "Error creating admin: " . $conn->error . "<br>";
+        echo "Admin account $adminUser already exists.<br>";
     }
-} else {
-    echo "Admin account already exists.<br>";
 }
 
 echo "<h3>Setup Completed Successfully!</h3>";
-echo "<p><a href='index.php'>Go to Login Page</a></p>";
+echo "<p><a href='index.php'>Go to Home Page</a></p>";
 
 $conn->close();
 ?>

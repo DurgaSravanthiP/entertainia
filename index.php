@@ -1,79 +1,92 @@
-<?php
-session_start();
-$error = $_SESSION['error'] ?? '';
-$success = $_SESSION['success'] ?? '';
-unset($_SESSION['error'], $_SESSION['success']);
-?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Login • Fun Entertainia</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fun Entertainia</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body,
+    html {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .hero-section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .landing-card {
+      background: white;
+      padding: 40px;
+      border-radius: 30px;
+      box-shadow: var(--card-shadow);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .landing-logo {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .landing-title {
+      font-size: 2.2rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .landing-desc {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .landing-footer {
+      margin-top: 30px;
+      font-weight: 700;
+    }
+  </style>
 </head>
+
 <body class="page-login">
-  <div class="auth-wrapper">
-    <div class="auth-card">
-      <div class="auth-header">
-        <h2>Welcome back</h2>
-        <p>Sign in to continue to Fun Entertainia</p>
+
+  <div class="hero-section">
+    <div class="landing-card">
+      <i class="fas fa-play-circle landing-logo"></i>
+      <h1 class="landing-title">Fun Entertainia</h1>
+      <p class="landing-desc">
+        Watch cartoons and listen to music you love.
+        Everything is easy and fun!
+      </p>
+
+      <div class="btn-group">
+        <a href="login.php" class="btn-primary"
+          style="display: block; width: 100%; text-decoration: none; text-align: center;">Login</a>
+        <a href="register.php" class="btn-primary"
+          style="display: block; width: 100%; text-decoration: none; text-align: center; background: #fff; color: var(--primary); border: 2px solid var(--primary);">Register</a>
       </div>
 
-      <?php if (!empty($error)): ?>
-        <div class="message error"><?php echo htmlspecialchars($error); ?></div>
-      <?php endif; ?>
-      <?php if (!empty($success)): ?>
-        <div class="message success"><?php echo htmlspecialchars($success); ?></div>
-      <?php endif; ?>
-
-      <form action="login_process.php" method="POST">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input class="form-control" id="username" type="text" name="username" placeholder="Enter your username" required />
-        </div>
-        <div class="form-group password-wrap">
-          <label for="password">Password</label>
-          <input class="form-control" id="password" type="password" name="password" placeholder="Enter your password" required />
-          <button type="button" class="password-toggle" data-target="password">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-        </div>
-
-        <div class="form-group role-select">
-          <label><input type="radio" name="login_as" value="user" checked> User</label>
-          <label><input type="radio" name="login_as" value="admin"> Admin</label>
-        </div>
-
-        <div class="auth-actions">
-          <button type="submit" class="btn-primary">Log In</button>
-          <div class="link-inline">
-            <a href="forgot_password.php">Forgot Password?</a>
-          </div>
-        </div>
-
-        <div class="auth-footer">
-          New here? <a href="register.php">Create an account</a>
-        </div>
-      </form>
+      <div class="landing-footer">
+        <a href="privacy.php">Privacy Policy</a>
+      </div>
     </div>
   </div>
-  <script>
-    document.querySelectorAll('.password-toggle').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const targetId = btn.getAttribute('data-target');
-        const input = document.getElementById(targetId);
-        if (!input) return;
-        const isPassword = input.type === 'password';
-        input.type = isPassword ? 'text' : 'password';
-        const icon = btn.querySelector('i');
-        if (icon) {
-          icon.classList.toggle('fa-eye', !isPassword);
-          icon.classList.toggle('fa-eye-slash', isPassword);
-        }
-      });
-    });
-  </script>
+
 </body>
+
 </html>

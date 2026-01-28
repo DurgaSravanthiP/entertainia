@@ -2,7 +2,7 @@
 
 Entertainia is a vibrant web-based entertainment platform designed to bring joy to users through a curated collection of music and cartoons. It features a user-friendly interface, personalized favorites, and a secure authentication system for both users and administrators.
 
-🔗 **Live Demo:** [http://entertainia.rf.gd](http://entertainia.rf.gd)
+🔗 **Live Demo:** [https://entertainia.rf.gd](https://entertainia.rf.gd)
 
 ---
 
@@ -41,29 +41,21 @@ Entertainia is a vibrant web-based entertainment platform designed to bring joy 
 ```
 Entertainia/
 │
-├── index.php                 # Login Page (Entry Point)
+├── index.php                 # Landing Page 
+├── login.php                 # Login Page 
 ├── register.php              # User Registration
-├── selection.php             # User Dashboard (Choose Music/Cartoon)
+├── privacy.php               # Privacy Policy 
+├── selection.php             # User Dashboard
 ├── admin_dashboard.php       # Admin Dashboard
 │
 ├── music.php                 # Music Player Page
 ├── cartoon.php               # Cartoon Player Page
 │
-├── css/
-│   ├── styles.css            # Global Styles
-│   ├── music.css             # Music Page Specific Styles
-│   ├── cartoon.css           # Cartoon Page Specific Styles
-│   ├── selection.css         # Selection Page Specific Styles
-│   └── admin_dashboard.css   # Admin Page Specific Styles
-│
-├── php/
-│   ├── db_connect.php        # Database Connection
-│   ├── setup_database.php    # Automated Database Setup Script
-│   ├── login_process.php     # Login Logic
-│   ├── register_process.php  # Registration Logic
-│   └── favorites_api.php     # API for handling favorites
-│
-└── assets/                   # Images and Icons (External URLs used in code)
+├── db_connect.php            # Database Connection
+├── setup_database.php        # Automated Setup Script
+├── login_process.php         # Multi-table Login Logic
+├── register_process.php      # Registration Logic
+└── favorites_api.php         # Favorites Handlers
 ```
 
 ---
@@ -83,11 +75,11 @@ Entertainia/
    - Open your browser and visit: `http://localhost/entertainia/setup_database.php`
    - This script will automatically:
      - Create the `funhub` database.
-     - Create necessary tables (`users`, `favorites`).
-     - Create a default **Admin** account (`admin` / `admin123`).
+     - Create necessary tables (`users`, `admins`, `favorites`).
+     - Create 4 default **Admin** accounts (`admin1` to `admin4` / `admin123`).
 
 4. **Launch Application:**
-   - Open: `http://localhost/entertainia/index.php`
+   - Open: `http://localhost/entertainia/index.php` (Home)
 
 ---
 
