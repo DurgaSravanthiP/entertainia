@@ -2,7 +2,7 @@
 
 Entertainia is a vibrant web-based entertainment platform designed to bring joy to users through a curated collection of music and cartoons. It features a user-friendly interface, personalized favorites, and a secure authentication system for both users and administrators.
 
-🔗 **Live Demo:** [https://entertainia.rf.gd](https://entertainia.rf.gd)
+🔗 **Live Demo:** [http://entertainia.rf.gd](http://entertainia.rf.gd)
 
 ---
 
@@ -95,3 +95,4 @@ Entertainia/
 ## 📎 GitHub Repository
 
 [https://github.com/DurgaSravanthiP/entertainia](https://github.com/DurgaSravanthiP/entertainia)
+
